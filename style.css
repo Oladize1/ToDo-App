@@ -1,0 +1,64 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: rebeccapurple;
+    color: aliceblue;
+}
+button {
+    padding:12px 15px;
+    outline: none;
+    border: 1px solid blanchedalmond;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+input{
+    padding: 12px;
+    width: 90%;
+    border-radius: 8px;
+}
+button:hover{
+    padding: 15px 18px;
+}
+.todo-app {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    width: 500px;
+    height: auto;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list-card {
+    border-radius: 5px;
+    padding: 12px;
+}
+.list {
+    padding: 12px;
+    width: auto;
+    background-color: aliceblue;
+    color: black;
+    margin-bottom: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.deleteBtn {
+    background-color: red;
+    color: white;
+    text-decoration: none;
+}
+.done {
+    text-decoration: line-through;
+}

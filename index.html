@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TODO-App</title>
+</head>
+<body>
+    <div class="todo-app">
+        <h2>My To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Enter a task" />
+        <button id="addTask">Add Task</button>
+    </div>
+    <div class="list-card">
+        <ul id="taskList"></ul>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addTask = document.getElementById('addTask')
+        const taskInput = document.getElementById('taskInput')
+        const taskList = document.getElementById('taskList')
+
+        function saveTaskToLocalStorage(task){
+            localStorage.setItem('tasks', JSON.stringify(task))
+        }
+        addTask.addEventListener('click', () => {
+            if (taskInput.value === '') {
+                alert("you can't submit empty list")
+                return
+            }
+            const uniqueId = Math.floor(Math.random() * 1000)
+            let list = document.createElement('li')
+            let deleteBtn = document.createElement('button')
+            let text = document.createElement('span')
+            list.id = uniqueId
+            deleteBtn.id = uniqueId
+            deleteBtn.innerText = 'delete Task'
+            text.innerText = taskInput.value
+            list.appendChild(text) 
+            list.classList.add('list')
+            deleteBtn.classList.add('deleteBtn')
+            list.appendChild(deleteBtn)
+            taskList.appendChild(list)
+
+            const targetId = uniqueId
+            list.addEventListener('click', (e)=>{
+                if (Number(e.currentTarget.id) === targetId) {
+                    text.classList.toggle('done')
+                }
+            })
+            deleteBtn.addEventListener('click', (e) => {
+                if (Number(e.currentTarget.id) === targetId) {
+                    list.style = "display: none"
+                }
+            })
+            taskInput.value = ''
+        })
+
+    })
+</script>
+</html>
