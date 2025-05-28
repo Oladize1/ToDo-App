@@ -74,3 +74,19 @@ button:hover{
     text-decoration: line-through;
     color: green;
 }
+#filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-block: 20px;
+}
+#showCompleted{
+    background-color: green;
+    color: white;
+    outline: none;
+}
+#showUncompleted{
+    background-color: red;
+    color: white;
+}

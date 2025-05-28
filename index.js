@@ -3,6 +3,31 @@
         const addTask = document.getElementById('addTask')
         const taskInput = document.getElementById('taskInput')
         const taskList = document.getElementById('taskList')
+        const showAll = document.getElementById('showAll')
+        const showCompleted = document.getElementById('showCompleted')
+        const showUncompleted = document.getElementById('showUncompleted')
+
+
+        // FilterTask Function
+        function filterTask(filterType){
+            taskList.innerHTML = ''
+            if (filterType === 'completed') {
+                tasks.filter(task => task.completed === true).forEach(renderTask)
+            }else if (filterType === 'unCompleted') {
+                tasks.filter(task => task.completed === false).forEach(renderTask)
+            }else if(filterType === 'all') {
+                tasks.forEach(renderTask)
+            }
+        }
+        showAll.addEventListener('click', () => {
+            filterTask('all')
+        })
+        showCompleted.addEventListener('click', () => {
+            filterTask('completed')
+        })
+        showUncompleted.addEventListener('click', () => {
+            filterTask('unCompleted')
+        })
         let stored = localStorage.getItem('tasks')
         if (stored && stored !== 'undefined') {
             console.log("stored value", stored);
