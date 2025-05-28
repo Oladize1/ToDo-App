@@ -54,8 +54,19 @@ button:hover{
     justify-content: space-between;
     align-items: center;
 }
+.btn-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
 .deleteBtn {
     background-color: red;
+    color: white;
+    text-decoration: none;
+}
+.editBtn {
+    background-color: rebeccapurple;
     color: white;
     text-decoration: none;
 }

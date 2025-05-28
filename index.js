@@ -3,7 +3,6 @@
         const addTask = document.getElementById('addTask')
         const taskInput = document.getElementById('taskInput')
         const taskList = document.getElementById('taskList')
-
         let stored = localStorage.getItem('tasks')
         if (stored && stored !== 'undefined') {
             console.log("stored value", stored);
@@ -19,7 +18,7 @@
 
         // create task
         addTask.addEventListener('click', (e) => {
-            if(e.target.tagName.toLowerCase() === 'button') return; 
+            // if(e.target.tagName.toLowerCase() === 'button') return; 
             if (taskInput.value === '') {
                 alert("you can't submit empty list")
                 return
@@ -46,17 +45,25 @@
         // Render Task on screen
         function renderTask(task){
             let list = document.createElement('li')
+            let div = document.createElement('div')
             let deleteBtn = document.createElement('button')
+            let editBtn = document.createElement('button')
             let text = document.createElement('span')
 
             list.id = task.id
             deleteBtn.id = task.id
+            editBtn.id = task.id
             deleteBtn.innerText = 'delete Task'
+            editBtn.innerText = 'Edit Task'
             text.innerText = task.text
             list.appendChild(text) 
             list.classList.add('list')
+            div.classList.add('btn-div')
             deleteBtn.classList.add('deleteBtn')
-            list.appendChild(deleteBtn)
+            editBtn.classList.add('editBtn')
+            div.appendChild(editBtn)
+            div.appendChild(deleteBtn)
+            list.appendChild(div)
             taskList.appendChild(list)
             const targetId = task.id
 
@@ -74,6 +81,24 @@
                         }
                     })
                     saveTaskToLocalStorage(tasks)
+                }
+            })
+
+            //edit task
+            editBtn.addEventListener('click', (e) => {
+                if (Number(e.currentTarget.id) === targetId) {
+                    tasks.forEach(task => {
+                        if (task.id === targetId) {
+                            const newText = window.prompt('', task.text)
+                            if (newText !== null && newText.trim() !== '') {
+                                task.text = newText
+                                task.completed = false
+                            }
+                        }
+                    })
+                    saveTaskToLocalStorage(tasks)
+                    taskList.innerHTML = ''
+                    tasks.forEach(renderTask)
                 }
             })
 
