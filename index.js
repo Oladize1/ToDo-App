@@ -5,7 +5,9 @@
         const taskList = document.getElementById('taskList')
 
         let stored = localStorage.getItem('tasks')
-        if (stored) {
+        if (stored && stored !== 'undefined') {
+            console.log("stored value", stored);
+            
             tasks = JSON.parse(stored)
             tasks.forEach(task => renderTask(task));
         }
@@ -52,25 +54,29 @@
             taskList.appendChild(list)
             const targetId = task.id
 
+            if (task.completed) {
+                text.classList.add('done')
+            }
+
             // Mark task for completion state
             list.addEventListener('click', (e)=>{
                 if (Number(e.currentTarget.id) === targetId) {
-                    const updateTaskState = tasks.forEach(task =>{
+                    text.classList.toggle('done')
+                    tasks.forEach(task =>{
                         if (task.id === targetId) {
-                          text.classList.toggle('done')
                           task.completed = !task.completed
                         }
                     })
-                    saveTaskToLocalStorage(updateTaskState)
+                    saveTaskToLocalStorage(tasks)
                 }
             })
 
             // delete task
             deleteBtn.addEventListener('click', (e) => {
                 if (Number(e.currentTarget.id) === targetId) {
-                    const deletedTask = tasks.filter(task => task.id !== targetId)
-                    saveTaskToLocalStorage(deletedTask)
-                    list.style = "display: none"
+                    tasks = tasks.filter(task => task.id !== targetId)
+                    saveTaskToLocalStorage(tasks)
+                    list.remove()
                 }
             })
         }
