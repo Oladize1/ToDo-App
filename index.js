@@ -18,7 +18,8 @@
         }
 
         // create task
-        addTask.addEventListener('click', () => {
+        addTask.addEventListener('click', (e) => {
+            if(e.target.tagName.toLowerCase() === 'button') return; 
             if (taskInput.value === '') {
                 alert("you can't submit empty list")
                 return
@@ -35,6 +36,11 @@
             renderTask(task)
             
             taskInput.value = ''
+        })
+        taskInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                addTask.click()
+            }
         })
 
         // Render Task on screen
