@@ -17,8 +17,7 @@
         }
 
         // create task
-        addTask.addEventListener('click', (e) => {
-            // if(e.target.tagName.toLowerCase() === 'button') return; 
+        addTask.addEventListener('click', (e) => { 
             if (taskInput.value === '') {
                 alert("you can't submit empty list")
                 return
@@ -73,6 +72,7 @@
 
             // Mark task for completion state
             list.addEventListener('click', (e)=>{
+                if(e.target.tagName.toLowerCase() === 'button') return;
                 if (Number(e.currentTarget.id) === targetId) {
                     text.classList.toggle('done')
                     tasks.forEach(task =>{
