@@ -6,7 +6,15 @@
         const showAll = document.getElementById('showAll')
         const showCompleted = document.getElementById('showCompleted')
         const showUncompleted = document.getElementById('showUncompleted')
+        const searchInput = document.getElementById('searchInput')
+        
 
+        searchInput.addEventListener('keyup', ()=> {
+            const search = tasks.filter(task => task.text.toLowerCase().includes(searchInput.value.toLowerCase()))
+            taskList.innerHTML = ''
+            search.forEach(renderTask)
+            
+        })
 
         // FilterTask Function
         function filterTask(filterType){
@@ -30,8 +38,6 @@
         })
         let stored = localStorage.getItem('tasks')
         if (stored && stored !== 'undefined') {
-            console.log("stored value", stored);
-            
             tasks = JSON.parse(stored)
             tasks.forEach(task => renderTask(task));
         }

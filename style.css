@@ -90,3 +90,10 @@ button:hover{
     background-color: red;
     color: white;
 }
+#searchInput {
+    margin-block: 5px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-inline: auto;
+}
