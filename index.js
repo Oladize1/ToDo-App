@@ -7,6 +7,8 @@
         const showCompleted = document.getElementById('showCompleted')
         const showUncompleted = document.getElementById('showUncompleted')
         const searchInput = document.getElementById('searchInput')
+        const dueDateInput = document.getElementById('dueDate')
+        const sortByDueDate = document.getElementById('sortByDueDate')
         
 
         searchInput.addEventListener('keyup', ()=> {
@@ -25,6 +27,13 @@
                 tasks.filter(task => task.completed === false).forEach(renderTask)
             }else if(filterType === 'all') {
                 tasks.forEach(renderTask)
+            }else if(filterType === 'sortByDueDate'){
+                tasks.sort((a, b) =>{
+                    if(!a.dueDate) return 1
+                    if(!b.dueDate) return -1
+                    return new Date(a.dueDate) - new Date(b.dueDate)
+                })
+                tasks.forEach(renderTask)
             }
         }
         showAll.addEventListener('click', () => {
@@ -35,6 +44,11 @@
         })
         showUncompleted.addEventListener('click', () => {
             filterTask('unCompleted')
+        })
+        sortByDueDate.addEventListener('click', ()=>{
+            console.log('sort clicked');
+            
+            filterTask('sortByDueDate')
         })
         let stored = localStorage.getItem('tasks')
         if (stored && stored !== 'undefined') {
@@ -53,11 +67,13 @@
                 alert("you can't submit empty list")
                 return
             }
+            
             const uniqueId = Date.now()
             
             const task = {
                 id: uniqueId,
                 text: taskInput.value,
+                dueDate: dueDateInput.value || null,
                 completed: false
             }
             tasks.push(task)
@@ -65,6 +81,7 @@
             renderTask(task)
             
             taskInput.value = ''
+            dueDateInput.value = ''
         })
         taskInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
@@ -76,18 +93,29 @@
         function renderTask(task){
             let list = document.createElement('li')
             let div = document.createElement('div')
+            let textDiv = document.createElement('div')
             let deleteBtn = document.createElement('button')
             let editBtn = document.createElement('button')
             let text = document.createElement('span')
-
+            let dueDateText = document.createElement('span')
+            dueDateText.classList.add('dueDate')
             list.id = task.id
             deleteBtn.id = task.id
             editBtn.id = task.id
+            dueDateText.id = task.id
+
             deleteBtn.innerText = 'delete Task'
             editBtn.innerText = 'Edit Task'
+            dueDateText.innerText = `Due: ${task.dueDate}`
             text.innerText = task.text
-            list.appendChild(text) 
+
+            textDiv.appendChild(text)
+            if (task.dueDate !== null) {
+                textDiv.appendChild(dueDateText)
+            }
+            list.appendChild(textDiv) 
             list.classList.add('list')
+            textDiv.classList.add('text-div')
             div.classList.add('btn-div')
             deleteBtn.classList.add('deleteBtn')
             editBtn.classList.add('editBtn')

@@ -54,11 +54,14 @@ button:hover{
     justify-content: space-between;
     align-items: center;
 }
-.btn-div {
+.btn-div, .text-div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
+}
+.text-div {
+    gap: 15px;
 }
 .deleteBtn {
     background-color: red;
@@ -96,4 +99,9 @@ button:hover{
     align-self: center;
     justify-content: center;
     margin-inline: auto;
+}
+
+.dueDate {
+    font-weight: bolder;
+    font-size: medium;
 }
