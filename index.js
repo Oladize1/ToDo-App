@@ -149,8 +149,13 @@
                     tasks.forEach(task => {
                         if (task.id === targetId) {
                             const newText = window.prompt('', task.text)
+                            const newDueDate = window.prompt('Update due date (YYYY-MM-DD)', task.dueDate || '')
+                            if (newDueDate !== null && newDueDate.trim() !== '') {
+                                task.dueDate = newDueDate,
+                                task.completed = false
+                            }
                             if (newText !== null && newText.trim() !== '') {
-                                task.text = newText
+                                task.text = newText,
                                 task.completed = false
                             }
                         }
